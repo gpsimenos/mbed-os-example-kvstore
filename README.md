@@ -11,7 +11,7 @@ the specific application requirements and target hardware:
 
 KVStore Global APIs use Mbed-OS [KVStore configuration](#kvstore-configuration) json file to define the selected KVStore implementation option of the above.
 
-You can find more information about Mbed OS Key Value Store Design and other related items in the [kvstore design documentation](https://github.com/ARMmbed/mbed-os/tree/master/docs/design-documents/features/storage/KVStore/KVStore_design.md).
+You can find more information about Mbed OS Key Value Store Design and other related items in the [kvstore design documentation](https://github.com/ARMmbed/mbed-os/blob/master/docs/design-documents/features/storage/KVStore/KVStore_design.md).
 
 **Table of contents:**
 
@@ -28,7 +28,7 @@ You can find more information about Mbed OS Key Value Store Design and other rel
 
 The example sets several key/value pairs, some are defined as 'dummy' and some as 'real'. The example demonstrates several possible scenarios that set, get, search and remove specific keys, and iterate all keys.
 
-The example contains an [mbed-lib.json](./mbed-lib.json) configuration file that demonstrates how to set KVStore configuration for a specific target (K64F) that may override the [default configuration](#kvstore-configuration).
+The example contains an [mbed_app.json](./mbed_app.json) configuration file that demonstrates how to set KVStore configuration for a specific target (K64F) that may override the [default configuration](#kvstore-configuration).
 
 ## Hardware requirements
 
@@ -149,4 +149,4 @@ If you have problems, you can review the [documentation](https://os.mbed.com/doc
 for suggestions on what could be wrong and how to fix it.
 
 ## Default Global KVStore Configuration
-The Global KVStore APIs rely on the higher level Mbes-OS KVSTore retargetting layer [json configuration]()
+The Global KVStore APIs rely on the higher level Mbes-OS KVSTore retargetting layer [json configuration](https://github.com/ARMmbed/mbed-os/blob/master/features/storage/kvstore/conf/mbed_lib.json)
