@@ -11,6 +11,9 @@ the specific application requirements and target hardware:
 
 KVStore Global APIs use Mbed-OS [KVStore configuration](#kvstore-configuration) json file to define the selected KVStore implementation option of the above.
 
+**Note:** The example is by default set to be used on K64F target with **internal** memory (see: [mbed_app.json](./mbed_app.json)).
+If running in another target, make sure the target.json for the target includes the "components": ["FLASHIAP"] and device_has": ["FLASH"] or add this section to the example [mbed_app.json](./mbed_app.json).
+
 You can find more information about Mbed OS Key Value Store Design and other related items in the [kvstore design documentation](https://github.com/ARMmbed/mbed-os/blob/master/docs/design-documents/features/storage/KVStore/KVStore_design.md).
 
 **Table of contents:**
