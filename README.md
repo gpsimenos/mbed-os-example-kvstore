@@ -99,7 +99,7 @@ result similar to:
 Total Static RAM memory (data + bss): 11632(+0) bytes
 Total Flash memory (text + data): 116718(+0) bytes
 
-Image: ./BUILD/K82F/GCC_ARM/kvstore.bin
+Image: ./BUILD/K64F/ARM/mbed-os-example-kvstore.bin
 ```
 
 #### Run the example
