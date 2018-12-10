@@ -29,6 +29,15 @@ using namespace mbed;
 
 void kv_store_global_api_example();
 
+void print_return_code(int rc, int expected_rc)
+{
+    printf("Return code is %d ", err_code(rc));
+    if (rc == expected_rc)
+        printf("(as expected).\n");
+    else
+        printf("(expected %d!).\n", err_code(expected_rc));
+}
+
 int main()
 {
     /* KV Store Static API Example */
@@ -57,18 +66,27 @@ void kv_store_global_api_example()
     /* Start By Resetting the KV Storage */
     printf("kv_reset\n");
     res = kv_reset("/kv/");
-    printf("kv_reset -> %d\n", err_code(res));
+    if (res == MBED_ERROR_UNSUPPORTED) {
+        printf("KVStore is not supported for this board. Please chack the board hardware specification.\n"
+                "More info can be found here "
+                "https://github.com/ARMmbed/mbed-os/blob/master/docs/design-documents/features/storage/Configuration/CONFIGURATION.md\n");
+        return;
+    }
+    printf("kv_reset: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Set First 'Dummy' Key/Value pair with unprotected clear value data */
     printf("kv_set first dummy key\n");
     res = kv_set(kv_key_in, kv_value_in, strlen(kv_value_in), 0);
-    printf("kv_set -> %d\n", err_code(res));
+    printf("kv_set: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Read the KV Pair you've just set */
     /* Start by getting key's information */
     printf("kv_get_info of first key\n");
     res = kv_get_info(kv_key_in, &info);
-    printf("kv_get_info -> %d\n", err_code(res));
+    printf("kv_get_info: ");
+    print_return_code(res, MBED_SUCCESS);
     printf("kv_get_info key: %s\n", kv_key_in);
     printf("kv_get_info info - size: %u, flags: %lu\n", info.size, info.flags);
 
@@ -78,7 +96,8 @@ void kv_store_global_api_example()
     char *kv_first_value_out = new char[info.size + 1];
     memset(kv_first_value_out, 0, info.size + 1);
     res = kv_get(kv_key_in, kv_first_value_out, info.size, &actual_size);
-    printf("kv_get -> %d\n", err_code(res));
+    printf("kv_get: ");
+    print_return_code(res, MBED_SUCCESS);
     printf("kv_get key: %s\n", kv_key_in);
     printf("kv_get value: %s\n", kv_first_value_out);
     delete[] kv_first_value_out;
@@ -87,23 +106,27 @@ void kv_store_global_api_example()
     /* Set 'Dummy' Key2 */
     printf("kv_set second dummy key \n");
     res = kv_set("/kv/dummy_key2", "dummy_value2", strlen("dummy_value2"), 0);
-    printf("kv_set -> %d\n", err_code(res));
+    printf("kv_set: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Set an authenticated-encrypted 'Dummy' key with Replay protection */
     printf("kv_set third key with Confidentiality and Replay Protection flags\n");
     res = kv_set("/kv/dummy_auth_enc_key", "auth_enc_value", strlen("auth_enc_value"),
                  KV_REQUIRE_CONFIDENTIALITY_FLAG | KV_REQUIRE_REPLAY_PROTECTION_FLAG);
-    printf("kv_set -> %d\n", err_code(res));
+    printf("kv_set: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Set 2 non-dummy 'Real' KV pairs */
     /* Set 'Real' Key 1 */
     printf("kv_set Set 'Real' Key 1\n");
     res = kv_set("/kv/real_key1", "real_value1", strlen("real_value1"), 0);
-    printf("kv_set -> %d\n", err_code(res));
+    printf("kv_set: ");
+    print_return_code(res, MBED_SUCCESS);
     /* Set 'Real' Write-Once Key2 for a key that you do not want to be removed */
     printf("kv_set Set 'Real' Key 2 with flag write-once\n");
     res = kv_set("/kv/real_wo_key", "real_wo_value", strlen("real_wo_value"), KV_WRITE_ONCE_FLAG);
-    printf("kv_set -> %d\n", err_code(res));
+    printf("kv_set: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Now lets remove all of the 'Dummy' Keys and remain with the 'Real' ones */
     printf("Removing 'Dummy' Keys\n");
@@ -113,7 +136,9 @@ void kv_store_global_api_example()
     while (kv_iterator_next(kvstore_it, kv_key_out, EXAMPLE_KV_KEY_LENGTH) != MBED_ERROR_ITEM_NOT_FOUND) {
         i_ind++;
         printf("%d) Removing %s\n", i_ind, kv_key_out);
-        kv_remove(kv_key_out);
+        res = kv_remove(kv_key_out);
+        printf("kv_remove: ");
+        print_return_code(res, MBED_SUCCESS);
         memset(kv_key_out, 0, EXAMPLE_KV_KEY_LENGTH);
     }
     res = kv_iterator_close(kvstore_it);
@@ -132,12 +157,14 @@ void kv_store_global_api_example()
     /* Try to remove write-once Key - should fail */
     printf("kv_remove write-once file - should fail!\n");
     res = kv_remove("/kv/real_wo_key");
-    printf("kv_remove -> %d\n", err_code(res));
+    printf("kv_remove: ");
+    print_return_code(res, MBED_SUCCESS);
 
     /* Finally, reset will format kvstore and remove All Keys (including write-once keys) */
     printf("kv_reset format kvstore (including write-once)\n");
     res = kv_reset("/kv/");
-    printf("kv_reset -> %d\n", err_code(res));
+    printf("kv_reset");
+    print_return_code(res, MBED_SUCCESS);
 
     return;
 }
