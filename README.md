@@ -3,13 +3,13 @@
 This example demonstrates how to use the Mbed OS Key Value Storage Global API.
 
 KVStore is a key-value storage based API over a block device.
-Mbed-OS provides several KVStore implementation options, that can be optimized to
+Mbed OS provides several KVStore implementation options, that can be optimized to
 the specific application requirements and target hardware:
 - TDBStore - Default implementation of the KVStore API. It provides static wear-leveling and quick access for when you have a small number of KV pairs.
 - FileSystemStore - Class that provides a key-value store API on top of a POSIX-like file system API.
 - SecureStore - Class that provides encryption, authentication and rollback protection on top of the KVStore API. It requires two KVStore implementations, one that provides the storage for the KV pairs and one providing storage for the CMACs that protect KV pairs stored in the KVStore.
 
-KVStore Global APIs use Mbed-OS [KVStore configuration](#kvstore-configuration) json file to define the selected KVStore implementation option of the above.
+KVStore Global APIs use Mbed OS [KVStore configuration](#kvstore-configuration) json file to define the selected KVStore implementation option of the above.
 
 **Note:** The example is by default set to be used on K64F target with **internal** memory (see: [mbed_app.json](./mbed_app.json)).
 If running in another target, make sure the target.json for the target includes the "components": ["FLASHIAP"] and device_has": ["FLASH"] or add this section to the example [mbed_app.json](./mbed_app.json).
@@ -159,4 +159,5 @@ If you have problems, you can review the [documentation](https://os.mbed.com/doc
 for suggestions on what could be wrong and how to fix it.
 
 ## KVStore Configuration
-The Global KVStore API options can be set up in the higher level Mbes-OS KVSTore retargetting layer [json configuration](https://github.com/ARMmbed/mbed-os/blob/master/features/storage/kvstore/conf/mbed_lib.json)
+
+The Global KVStore API options can be set up in the higher level Mbed OS KVSTore retargetting layer [json configuration](https://github.com/ARMmbed/mbed-os/blob/master/features/storage/kvstore/conf/mbed_lib.json)
