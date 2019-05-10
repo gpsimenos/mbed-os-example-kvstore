@@ -1,0 +1,32 @@
+--- Mbed OS KVStore static API example ---
+kv_reset
+kv_reset -> 0
+kv_set first dummy key
+kv_set -> 0
+kv_get_info of first key
+kv_get_info -> 0
+kv_get_info key: \/kv\/dummy_key1
+kv_get_info info - size: 31, flags: 0
+kv_get first key
+kv_get -> 0
+kv_get key: \/kv\/dummy_key1
+kv_get value: kvstore_dummy_value_hello_world
+kv_set second dummy key
+kv_set -> 0
+kv_set third key with Confidentiality and Replay Protection flags
+kv_set -> 0
+kv_set Set 'Real' Key 1
+kv_set -> 0
+kv_set Set 'Real' Key 2 with flag write-once
+kv_set -> 0
+Removing 'Dummy' Keys
+1\) Removing dummy_key2
+2\) Removing dummy_auth_enc_key
+3\) Removing dummy_key1
+Remaining with 'Real' Keys:
+1\) real_key1
+2\) real_wo_key
+kv_remove write-once file - should fail!
+kv_remove -> 274
+kv_reset format kvstore \(including write-once\)
+kv_reset -> 0
