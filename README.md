@@ -110,10 +110,11 @@ Image: ./BUILD/K64F/ARM/mbed-os-example-kvstore.bin
 1. Open the UART of the board in your favorite UART viewing program. For
    example, `screen /dev/ttyACM0`.
 
-**Note:** The default serial port baud rate is 115200 bit/s.
+**Note:** The default serial port baud rate is 9600 bit/s.
           You may open serial term with:  
+
 ```
-mbed sterm -b 115200 -r
+mbed sterm -b 9600 -r
 ```
 
 Expected output:
