@@ -4,8 +4,6 @@
             "storage.storage_type": "TDB_INTERNAL"
         },
         "*": {
-            "platform.stdio-baud-rate": 115200,
-            "platform.default-serial-baud-rate": 115200,
             "platform.stdio-convert-newlines": 1
         }
     }
