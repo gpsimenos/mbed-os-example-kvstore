@@ -1,3 +1,4 @@
+![](./resources/official_armmbed_example_badge.png)
 # Getting started with the Mbed OS Key Value Store Global API
 
 This example demonstrates how to use the Mbed OS Key Value Storage Global API.
